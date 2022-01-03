@@ -1,1 +1,24 @@
+Postgres
 
+INSERT INTO public.roles(
+	id, name)
+	VALUES (1,"ROLE_USER"),(2,"ROLE_MODERATOR"),(3,"ROLE_ADMIN")
+  
+  
+  
+  do $$
+begin
+   for cnt in 1..1000 loop
+    raise notice 'cnt: %', cnt;
+	INSERT INTO public.movies(
+  	id, description, published, title, rating, cast1, cast2)
+ 	VALUES (cnt, --id
+			CONCAT('description_', cnt), 
+			true, --published
+			CONCAT('title_', cnt), 
+			(random() * 4 + 1)::"numeric",--rating 
+			CONCAT('cast1_', cnt),
+			CONCAT('cast2_', cnt)
+		   );
+   end loop;
+end; $$
